@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="maven-antrun-" default="main">
+  <target name="main">
+    <copy file="C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\target/site/jacoco/index.html" tofile="C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service/../docs/jacoco-kpi-service.html" />
+  </target>
+</project>

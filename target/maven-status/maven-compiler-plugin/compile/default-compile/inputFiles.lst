@@ -1,0 +1,17 @@
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\client\DataServiceClient.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\config\DataLoader.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\config\KpiDataLoader.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\config\OpenApiConfig.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\config\RestTemplateConfig.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\controller\KpiController.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\exception\GlobalExceptionHandler.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\KpiServiceApplication.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\model\Kpi.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\repository\KpiRepository.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\service\calculator\InventarioCalculator.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\service\calculator\KpiCalculator.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\service\calculator\KpiFactory.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\service\calculator\LogisticaCalculator.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\service\calculator\RentabilidadCalculator.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\service\calculator\VentasCalculator.java
+C:\Users\Nacho\Documents\Proyectos - DUOC\DESARROLLO FULLSTACK III\cordillera-platform-parcial-2\kpi-service\src\main\java\cl\duoc\cordillera\kpiservice\service\KpiService.java

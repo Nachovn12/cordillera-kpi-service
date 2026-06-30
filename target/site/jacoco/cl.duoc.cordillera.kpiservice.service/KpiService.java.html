@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KpiService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kpi-service</a> &gt; <a href="index.source.html" class="el_package">cl.duoc.cordillera.kpiservice.service</a> &gt; <span class="el_source">KpiService.java</span></div><h1>KpiService.java</h1><pre class="source lang-java linenums">package cl.duoc.cordillera.kpiservice.service;
+
+import cl.duoc.cordillera.kpiservice.model.Kpi;
+import cl.duoc.cordillera.kpiservice.repository.KpiRepository;
+import cl.duoc.cordillera.kpiservice.service.calculator.KpiCalculator;
+import cl.duoc.cordillera.kpiservice.service.calculator.KpiFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Service
+public class KpiService {
+
+    private final KpiRepository kpiRepository;
+    private final KpiFactory kpiFactory;
+
+<span class="fc" id="L20">    public KpiService(KpiRepository kpiRepository, KpiFactory kpiFactory) {</span>
+<span class="fc" id="L21">        this.kpiRepository = kpiRepository;</span>
+<span class="fc" id="L22">        this.kpiFactory = kpiFactory;</span>
+<span class="fc" id="L23">    }</span>
+
+    public List&lt;Kpi&gt; findAll() {
+<span class="fc" id="L26">        return kpiRepository.findAll();</span>
+    }
+
+    public Kpi findById(Long id) {
+<span class="fc" id="L30">        return kpiRepository.findById(id)</span>
+<span class="fc" id="L31">                .orElseThrow(() -&gt; new ResponseStatusException(</span>
+                        HttpStatus.NOT_FOUND, &quot;KPI no encontrado con id: &quot; + id));
+    }
+
+    public Kpi create(Kpi kpi) {
+<span class="fc" id="L36">        calcularValor(kpi);</span>
+<span class="fc" id="L37">        return kpiRepository.save(kpi);</span>
+    }
+
+    public Kpi update(Long id, Kpi kpi) {
+<span class="fc" id="L41">        Kpi existing = findById(id);</span>
+<span class="fc" id="L42">        existing.setNombre(kpi.getNombre());</span>
+<span class="fc" id="L43">        existing.setValor(kpi.getValor());</span>
+<span class="fc" id="L44">        existing.setUnidad(kpi.getUnidad());</span>
+<span class="fc" id="L45">        existing.setCategoria(kpi.getCategoria());</span>
+<span class="fc" id="L46">        existing.setEstado(kpi.getEstado());</span>
+<span class="fc" id="L47">        calcularValor(existing);</span>
+<span class="fc" id="L48">        return kpiRepository.save(existing);</span>
+    }
+
+    public void delete(Long id) {
+<span class="fc" id="L52">        kpiRepository.deleteById(id);</span>
+<span class="fc" id="L53">    }</span>
+
+    public List&lt;Kpi&gt; findByCategoria(String categoria) {
+<span class="fc" id="L56">        return kpiRepository.findByCategoria(categoria);</span>
+    }
+
+    private void calcularValor(Kpi kpi) {
+<span class="fc" id="L60">        KpiCalculator calculator = kpiFactory.obtenerCalculador(kpi.getCategoria());</span>
+<span class="fc" id="L61">        BigDecimal resultado = calculator.calcular(kpi.getValor(), BigDecimal.valueOf(100));</span>
+<span class="fc" id="L62">        kpi.setValor(resultado);</span>
+<span class="fc" id="L63">        kpi.setUnidad(calculator.getUnidad());</span>
+<span class="fc" id="L64">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

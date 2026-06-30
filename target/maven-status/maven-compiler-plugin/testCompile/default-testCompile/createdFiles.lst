@@ -1,0 +1,7 @@
+cl\duoc\cordillera\kpiservice\controller\KpiControllerTest.class
+cl\duoc\cordillera\kpiservice\service\calculator\KpiCalculatorsTest.class
+cl\duoc\cordillera\kpiservice\service\KpiServiceTest.class
+cl\duoc\cordillera\kpiservice\repository\KpiRepositoryTest.class
+cl\duoc\cordillera\kpiservice\service\KpiFactoryTest.class
+cl\duoc\cordillera\kpiservice\client\DataServiceClientTest.class
+cl\duoc\cordillera\kpiservice\KpiServiceApplicationTests.class

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataLoader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kpi-service</a> &gt; <a href="index.source.html" class="el_package">cl.duoc.cordillera.kpiservice.config</a> &gt; <span class="el_source">DataLoader.java</span></div><h1>DataLoader.java</h1><pre class="source lang-java linenums">package cl.duoc.cordillera.kpiservice.config;
+
+import cl.duoc.cordillera.kpiservice.model.Kpi;
+import cl.duoc.cordillera.kpiservice.repository.KpiRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
+
+@Component
+@Profile(&quot;!test&quot;)
+public class DataLoader implements CommandLineRunner {
+
+    private final KpiRepository kpiRepository;
+
+<span class="nc" id="L17">    public DataLoader(KpiRepository kpiRepository) {</span>
+<span class="nc" id="L18">        this.kpiRepository = kpiRepository;</span>
+<span class="nc" id="L19">    }</span>
+
+    @Override
+    public void run(String... args) {
+<span class="nc bnc" id="L23" title="All 2 branches missed.">        if (kpiRepository.count() == 0) {</span>
+<span class="nc" id="L24">            Kpi kpi1 = new Kpi();</span>
+<span class="nc" id="L25">            kpi1.setNombre(&quot;Crecimiento Ventas Omnicanal&quot;);</span>
+<span class="nc" id="L26">            kpi1.setValor(new BigDecimal(&quot;15.5&quot;));</span>
+<span class="nc" id="L27">            kpi1.setUnidad(&quot;%&quot;);</span>
+<span class="nc" id="L28">            kpi1.setCategoria(&quot;VENTAS&quot;);</span>
+<span class="nc" id="L29">            kpi1.setEstado(&quot;ACTIVO&quot;);</span>
+
+<span class="nc" id="L31">            Kpi kpi2 = new Kpi();</span>
+<span class="nc" id="L32">            kpi2.setNombre(&quot;Rotacion de Stock Hogar/Tech&quot;);</span>
+<span class="nc" id="L33">            kpi2.setValor(new BigDecimal(&quot;85.0&quot;));</span>
+<span class="nc" id="L34">            kpi2.setUnidad(&quot;%&quot;);</span>
+<span class="nc" id="L35">            kpi2.setCategoria(&quot;INVENTARIO&quot;);</span>
+<span class="nc" id="L36">            kpi2.setEstado(&quot;ACTIVO&quot;);</span>
+
+<span class="nc" id="L38">            Kpi kpi3 = new Kpi();</span>
+<span class="nc" id="L39">            kpi3.setNombre(&quot;Tasa de Entrega a Tiempo&quot;);</span>
+<span class="nc" id="L40">            kpi3.setValor(new BigDecimal(&quot;92.3&quot;));</span>
+<span class="nc" id="L41">            kpi3.setUnidad(&quot;%&quot;);</span>
+<span class="nc" id="L42">            kpi3.setCategoria(&quot;LOGISTICA&quot;);</span>
+<span class="nc" id="L43">            kpi3.setEstado(&quot;ACTIVO&quot;);</span>
+
+<span class="nc" id="L45">            Kpi kpi4 = new Kpi();</span>
+<span class="nc" id="L46">            kpi4.setNombre(&quot;Margen Bruto General&quot;);</span>
+<span class="nc" id="L47">            kpi4.setValor(new BigDecimal(&quot;35.8&quot;));</span>
+<span class="nc" id="L48">            kpi4.setUnidad(&quot;%&quot;);</span>
+<span class="nc" id="L49">            kpi4.setCategoria(&quot;RENTABILIDAD&quot;);</span>
+<span class="nc" id="L50">            kpi4.setEstado(&quot;ACTIVO&quot;);</span>
+
+<span class="nc" id="L52">            Kpi kpi5 = new Kpi();</span>
+<span class="nc" id="L53">            kpi5.setNombre(&quot;Retencion de Clientes&quot;);</span>
+<span class="nc" id="L54">            kpi5.setValor(new BigDecimal(&quot;76.4&quot;));</span>
+<span class="nc" id="L55">            kpi5.setUnidad(&quot;%&quot;);</span>
+<span class="nc" id="L56">            kpi5.setCategoria(&quot;CRM&quot;);</span>
+<span class="nc" id="L57">            kpi5.setEstado(&quot;ACTIVO&quot;);</span>
+
+<span class="nc" id="L59">            kpiRepository.save(kpi1);</span>
+<span class="nc" id="L60">            kpiRepository.save(kpi2);</span>
+<span class="nc" id="L61">            kpiRepository.save(kpi3);</span>
+<span class="nc" id="L62">            kpiRepository.save(kpi4);</span>
+<span class="nc" id="L63">            kpiRepository.save(kpi5);</span>
+        }
+<span class="nc" id="L65">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

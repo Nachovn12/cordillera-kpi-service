@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KpiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">kpi-service</a> &gt; <a href="index.source.html" class="el_package">cl.duoc.cordillera.kpiservice.controller</a> &gt; <span class="el_source">KpiController.java</span></div><h1>KpiController.java</h1><pre class="source lang-java linenums">package cl.duoc.cordillera.kpiservice.controller;
+
+import cl.duoc.cordillera.kpiservice.model.Kpi;
+import cl.duoc.cordillera.kpiservice.service.KpiService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Tag(name = &quot;KPIs&quot;, description = &quot;CRUD de indicadores clave de rendimiento. Categorías: Ventas, Inventario, Logística, Rentabilidad.&quot;)
+@RestController
+@RequestMapping(&quot;/api/kpis&quot;)
+public class KpiController {
+
+    private final KpiService kpiService;
+
+<span class="fc" id="L27">    public KpiController(KpiService kpiService) {</span>
+<span class="fc" id="L28">        this.kpiService = kpiService;</span>
+<span class="fc" id="L29">    }</span>
+
+    private static final String EJEMPLO_KPI = &quot;&quot;&quot;
+            {
+              &quot;id&quot;: 1,
+              &quot;nombre&quot;: &quot;Ventas Totales&quot;,
+              &quot;valor&quot;: 380000.00,
+              &quot;unidad&quot;: &quot;CLP&quot;,
+              &quot;categoria&quot;: &quot;Ventas&quot;,
+              &quot;estado&quot;: &quot;Activo&quot;
+            }&quot;&quot;&quot;;
+
+    private static final String EJEMPLO_KPI_LISTA = &quot;&quot;&quot;
+            [
+              {
+                &quot;id&quot;: 1,
+                &quot;nombre&quot;: &quot;Ventas Totales&quot;,
+                &quot;valor&quot;: 380000.00,
+                &quot;unidad&quot;: &quot;CLP&quot;,
+                &quot;categoria&quot;: &quot;Ventas&quot;,
+                &quot;estado&quot;: &quot;Activo&quot;
+              },
+              {
+                &quot;id&quot;: 2,
+                &quot;nombre&quot;: &quot;Nivel de Stock&quot;,
+                &quot;valor&quot;: 87.50,
+                &quot;unidad&quot;: &quot;%&quot;,
+                &quot;categoria&quot;: &quot;Inventario&quot;,
+                &quot;estado&quot;: &quot;Activo&quot;
+              },
+              {
+                &quot;id&quot;: 3,
+                &quot;nombre&quot;: &quot;Eficiencia Logística&quot;,
+                &quot;valor&quot;: 94.20,
+                &quot;unidad&quot;: &quot;%&quot;,
+                &quot;categoria&quot;: &quot;Logística&quot;,
+                &quot;estado&quot;: &quot;Activo&quot;
+              },
+              {
+                &quot;id&quot;: 4,
+                &quot;nombre&quot;: &quot;Margen Rentabilidad&quot;,
+                &quot;valor&quot;: 18.50,
+                &quot;unidad&quot;: &quot;%&quot;,
+                &quot;categoria&quot;: &quot;Rentabilidad&quot;,
+                &quot;estado&quot;: &quot;Activo&quot;
+              }
+            ]&quot;&quot;&quot;;
+
+    private static final String EJEMPLO_KPI_REQUEST = &quot;&quot;&quot;
+            {
+              &quot;nombre&quot;: &quot;Ventas Totales&quot;,
+              &quot;valor&quot;: 380000.00,
+              &quot;unidad&quot;: &quot;CLP&quot;,
+              &quot;categoria&quot;: &quot;Ventas&quot;,
+              &quot;estado&quot;: &quot;Activo&quot;
+            }&quot;&quot;&quot;;
+
+    private static final String EJEMPLO_404 = &quot;&quot;&quot;
+            {
+              &quot;status&quot;: 404,
+              &quot;error&quot;: &quot;Not Found&quot;,
+              &quot;message&quot;: &quot;KPI con id 99 no encontrado&quot;
+            }&quot;&quot;&quot;;
+
+    @Operation(summary = &quot;Listar todos los KPIs&quot;)
+    @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Lista de KPIs&quot;,
+        content = @Content(mediaType = &quot;application/json&quot;,
+            array = @ArraySchema(schema = @Schema(implementation = Kpi.class)),
+            examples = @ExampleObject(name = &quot;Lista de KPIs&quot;, value = EJEMPLO_KPI_LISTA)))
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Kpi&gt;&gt; getAll() {
+<span class="fc" id="L100">        return ResponseEntity.ok(kpiService.findAll());</span>
+    }
+
+    @Operation(summary = &quot;Buscar KPI por ID&quot;)
+    @ApiResponses({
+        @ApiResponse(responseCode = &quot;200&quot;, description = &quot;KPI encontrado&quot;,
+            content = @Content(mediaType = &quot;application/json&quot;,
+                schema = @Schema(implementation = Kpi.class),
+                examples = @ExampleObject(name = &quot;KPI encontrado&quot;, value = EJEMPLO_KPI))),
+        @ApiResponse(responseCode = &quot;404&quot;, description = &quot;KPI no encontrado&quot;,
+            content = @Content(mediaType = &quot;application/json&quot;,
+                examples = @ExampleObject(name = &quot;No encontrado&quot;, value = EJEMPLO_404)))
+    })
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Kpi&gt; getById(
+            @Parameter(description = &quot;ID del KPI&quot;, required = true, example = &quot;1&quot;) @PathVariable Long id) {
+<span class="fc" id="L116">        return ResponseEntity.ok(kpiService.findById(id));</span>
+    }
+
+    @Operation(summary = &quot;Crear KPI&quot;, description = &quot;El campo `categoria` determina la calculadora Factory a utilizar (Ventas, Inventario, Logística, Rentabilidad).&quot;)
+    @ApiResponses({
+        @ApiResponse(responseCode = &quot;201&quot;, description = &quot;KPI creado&quot;,
+            content = @Content(mediaType = &quot;application/json&quot;,
+                schema = @Schema(implementation = Kpi.class),
+                examples = @ExampleObject(name = &quot;KPI creado&quot;, value = EJEMPLO_KPI))),
+        @ApiResponse(responseCode = &quot;400&quot;, description = &quot;Datos inválidos&quot;, content = @Content)
+    })
+    @PostMapping
+    public ResponseEntity&lt;Kpi&gt; create(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = &quot;Campos requeridos: nombre, valor, unidad, categoria, estado&quot;,
+                required = true,
+                content = @Content(schema = @Schema(implementation = Kpi.class),
+                    examples = @ExampleObject(name = &quot;Nuevo KPI&quot;, value = EJEMPLO_KPI_REQUEST)))
+            @RequestBody Kpi kpi) {
+<span class="fc" id="L135">        return ResponseEntity.status(HttpStatus.CREATED).body(kpiService.create(kpi));</span>
+    }
+
+    @Operation(summary = &quot;Actualizar KPI&quot;)
+    @ApiResponses({
+        @ApiResponse(responseCode = &quot;200&quot;, description = &quot;KPI actualizado&quot;,
+            content = @Content(mediaType = &quot;application/json&quot;,
+                schema = @Schema(implementation = Kpi.class),
+                examples = @ExampleObject(name = &quot;KPI actualizado&quot;, value = EJEMPLO_KPI))),
+        @ApiResponse(responseCode = &quot;404&quot;, description = &quot;KPI no encontrado&quot;,
+            content = @Content(mediaType = &quot;application/json&quot;,
+                examples = @ExampleObject(name = &quot;No encontrado&quot;, value = EJEMPLO_404)))
+    })
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Kpi&gt; update(
+            @Parameter(description = &quot;ID del KPI&quot;, required = true, example = &quot;1&quot;) @PathVariable Long id,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                content = @Content(examples = @ExampleObject(name = &quot;KPI actualizado&quot;, value = EJEMPLO_KPI_REQUEST)))
+            @RequestBody Kpi kpi) {
+<span class="fc" id="L154">        return ResponseEntity.ok(kpiService.update(id, kpi));</span>
+    }
+
+    @Operation(summary = &quot;Eliminar KPI&quot;)
+    @ApiResponses({
+        @ApiResponse(responseCode = &quot;204&quot;, description = &quot;KPI eliminado&quot;, content = @Content),
+        @ApiResponse(responseCode = &quot;404&quot;, description = &quot;KPI no encontrado&quot;,
+            content = @Content(mediaType = &quot;application/json&quot;,
+                examples = @ExampleObject(name = &quot;No encontrado&quot;, value = EJEMPLO_404)))
+    })
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; delete(
+            @Parameter(description = &quot;ID del KPI&quot;, required = true, example = &quot;1&quot;) @PathVariable Long id) {
+<span class="fc" id="L167">        kpiService.delete(id);</span>
+<span class="fc" id="L168">        return ResponseEntity.noContent().build();</span>
+    }
+
+    @Operation(summary = &quot;Buscar KPIs por categoría&quot;, description = &quot;Valores válidos: Ventas, Inventario, Logística, Rentabilidad.&quot;)
+    @ApiResponse(responseCode = &quot;200&quot;, description = &quot;KPIs de la categoría&quot;,
+        content = @Content(mediaType = &quot;application/json&quot;,
+            array = @ArraySchema(schema = @Schema(implementation = Kpi.class)),
+            examples = @ExampleObject(name = &quot;KPIs categoría Ventas&quot;, value = &quot;&quot;&quot;
+                    [
+                      {
+                        &quot;id&quot;: 1,
+                        &quot;nombre&quot;: &quot;Ventas Totales&quot;,
+                        &quot;valor&quot;: 380000.00,
+                        &quot;unidad&quot;: &quot;CLP&quot;,
+                        &quot;categoria&quot;: &quot;Ventas&quot;,
+                        &quot;estado&quot;: &quot;Activo&quot;
+                      }
+                    ]&quot;&quot;&quot;)))
+    @GetMapping(&quot;/categoria/{cat}&quot;)
+    public ResponseEntity&lt;List&lt;Kpi&gt;&gt; getByCategoria(
+            @Parameter(description = &quot;Categoría del KPI&quot;, required = true, example = &quot;Ventas&quot;) @PathVariable String cat) {
+<span class="fc" id="L189">        return ResponseEntity.ok(kpiService.findByCategoria(cat));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
